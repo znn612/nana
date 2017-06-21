@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <form name="wo">
+            <input type="text" name="user">
+            <input type="password" name="pwd">
+            <input type="submit" value="提交" onclick="nih()">
+        </form>
+    <script type="text/javascript">
+        function nih(){
+            alert(document.wo.user.value);
+            }
+        	function getxhr() {
+        		if (window.XMLHttpRequest) {
+        			return new window.XMLHttpRequest;
+        		}else{
+        			return new ActiveXObject("Microsoft.XMLHTTP");
+        		}
+        	}
+    	var xhr = getxhr();
+    	//创建清求
+        xhr.open("GET","url");
+    	//3.设置回调函数
+    	xhr.onreadystatechange = function(){
+    		if(xhr.readyState ==4 && xhr.status ==200){
+                // console.log(xhr.responseText);
+                // 解析json
+                // 3.1 json转变为对象
+                var data = JSON.parse(xhr.responseText);
+                console.log(data);
+                for (var i = data.books.length-1;i>=0;i--) {
+                    var book = data.books[i];
+                    console.log(book.bookname);
+                 }
+    		}
+    	}
+    	//4.发送请求
+        //字符串转变为json ,键为后台定的
+        var data = JSON.stringify({
+         'user':document.wo.user.value,
+         'pwd':document.wo.user.value
+            });
+    	xhr.send(data);
+
+    </script>
+    </body>
+</html>
